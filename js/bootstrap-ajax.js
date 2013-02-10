@@ -74,9 +74,10 @@
       , url = $this.attr('action')
       , method = $this.attr('method')
       , data = new FormData($this[0])
+      , multiple = ($this.attr('data-multiple')) ? true : false
       , button = $this.find('input[type=submit],button[type=submit]')
     
-    button.attr('disabled', 'disabled')
+    if(!multiple) button.attr('disabled', 'disabled');
     
     spin($this)
     
@@ -106,6 +107,8 @@
         button.removeAttr('disabled')
       }
     })
+
+    if(multiple) return false;
   }
   
   Ajax.prototype.cancel = function(e) {
