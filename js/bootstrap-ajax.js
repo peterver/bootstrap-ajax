@@ -74,7 +74,7 @@
       , url = $this.attr('action')
       , method = $this.attr('method')
       , data = new FormData($this[0])
-      , multiple = ($this.attr('data-multiple')) ? true : false
+      , multiple = $this.attr('data-multiple')
       , button = $this.find('input[type=submit],button[type=submit]')
     
     if(!multiple) button.attr('disabled', 'disabled');
@@ -176,6 +176,7 @@
         , refresh_selector = $el.attr('data-refresh')
         , refresh_closest_selector = $el.attr('data-refresh-closest')
         , clear_selector = $el.attr('data-clear')
+        , multiple_selector = $el.attr('data-multiple')
         , remove_selector = $el.attr('data-remove')
         , clear_closest_selector = $el.attr('data-clear-closest')
         , remove_closest_selector = $el.attr('data-remove-closest')
@@ -224,6 +225,11 @@
       if (remove_closest_selector) {
         $el.closest(remove_closest_selector).remove()
       }
+      if (multiple_selector) {
+        $el.each(function(){
+          this.reset();
+        })
+      }
     }
     
     if (data.fragments) {
@@ -246,6 +252,7 @@
         $(p).prepend(data['prepend-fragments'][p])
       }
     }
+
     $el.trigger('bootstrap-ajax:success', [data, $el]);
   }
   
